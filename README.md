@@ -78,19 +78,19 @@ Use these files to test the scripts without setting up your own environment.
 1. **Capture Images and Data:**
    Run `timelapse_capture_images_and_data.py` to capture images and log data:
    ```bash
-   python scripts/timelapse_capture_images_and_data.py
+   python3 scripts/timelapse_capture_images_and_data.py
    ```
 
 2. **Analyze Starter Height and Bubbles:**
    Run `bubbles_and_height.py` to measure starter height and count bubbles:
    ```bash
-   python scripts/bubbles_and_height.py
+   python3 scripts/bubbles_and_height.py
    ```
 
 3. **Create a Timelapse Video:**
    Run `timelapse_animation.py` to create a timelapse video with graphical overlays:
    ```bash
-   python scripts/timelapse_animation.py
+   python3 scripts/timelapse_animation.py
    ```
 
 ---
