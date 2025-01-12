@@ -5,9 +5,9 @@ import subprocess
 import csv
 
 # Define paths for the photo counter and logs
-counter_file = "/home/pi/timelapse/photo_counter.txt"
-csv_file = "/home/pi/timelapse/data_log.csv"
-error_log_file = "/home/pi/timelapse/error_log.txt"
+counter_file = "../photo_counter.txt"  # Adjusted for the new directory structure
+csv_file = "../data_log.csv"          # Adjusted for the new directory structure
+error_log_file = "../error_log.txt"  # Adjusted for the new directory structure
 
 # Load the photo counter from the file
 if os.path.exists(counter_file):

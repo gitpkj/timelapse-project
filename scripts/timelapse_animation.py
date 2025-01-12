@@ -7,13 +7,13 @@ from tqdm import tqdm
 import pandas as pd
 
 # Load data
-print("Loading data from combined_starter_data.csv")
-data = pd.read_csv("combined_starter_data.csv")
+print("Loading data from ../combined_starter_data.csv")  # Adjusted path
+data = pd.read_csv("../combined_starter_data.csv")  # Relative path updated
 print("Data loaded successfully:")
 print(data.head())
 
 # Settings
-output_filename = "sourdough_timelapse.mp4"
+output_filename = "../sourdough_timelapse.mp4"
 canvas_width, canvas_height = 1600, 912  # Adjusted height to be divisible by 16
 x_range = list(range(len(data)))  # Static x-axis range
 
@@ -58,7 +58,7 @@ for idx, row in tqdm(data.iterrows(), total=len(data), desc="Processing frames")
     # Display the image
     img_path = row["Image"]
     try:
-        img = iio.imread(f"images/{img_path}")
+        img = iio.imread(f"../images/{img_path}")
         ax_img.imshow(img)
         ax_img.axis("off")
     except FileNotFoundError:
