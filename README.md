@@ -37,7 +37,9 @@ timelapse-project/
 1. **Hardware:**
    - Raspberry Pi (Zero 2 W or similar)
    - Arduino Uno
+   - DHT11 Temperature and Humidity Sensor
    - Camera module (compatible with Raspberry Pi)
+   - Jumper wires, breadboard, and a 10kΩ resistor (optional)
 
 2. **Software:**
    - Python 3.7+
@@ -59,8 +61,59 @@ timelapse-project/
    ```
 
 3. **Configure Hardware:**
-   - Connect the camera module to the Raspberry Pi.
-   - Ensure the Arduino is connected to the Raspberry Pi via USB.
+
+#### Arduino Setup: Capturing Temperature and Humidity (DHT11)
+This project uses an Arduino Uno and a DHT11 sensor to capture temperature and humidity data. Follow these steps to wire and program the Arduino:
+
+1. **Wiring Diagram:**
+   | DHT11 Pin | Arduino Pin | Description         |
+   |-----------|-------------|---------------------|
+   | VCC       | 5V          | Power to the sensor |
+   | GND       | GND         | Ground connection   |
+   | DATA      | Pin 2       | Data output         |
+
+   - Connect the **VCC** pin of the DHT11 to the Arduino's **5V** pin.
+   - Connect the **GND** pin of the DHT11 to the Arduino's **GND** pin.
+   - Connect the **DATA** pin of the DHT11 to **Digital Pin 2** on the Arduino.
+   - Add a pull-up resistor (10kΩ) between the DATA and VCC pins for stable readings (optional).
+
+2. **Arduino Code:**
+   Upload this code to the Arduino to send temperature and humidity data via serial:
+
+   ```cpp
+   #include "DHT.h"
+
+   #define DHTPIN 2     // Pin where the DHT11 data pin is connected
+   #define DHTTYPE DHT11   // DHT11 sensor type
+
+   DHT dht(DHTPIN, DHTTYPE);
+
+   void setup() {
+     Serial.begin(9600);
+     dht.begin();
+     Serial.println("DHT11 sensor setup complete.");
+   }
+
+   void loop() {
+     float temperature = dht.readTemperature(); // Read temperature in Celsius
+     float humidity = dht.readHumidity();      // Read humidity
+
+     if (isnan(temperature) || isnan(humidity)) {
+       Serial.println("Failed to read from DHT sensor!");
+       return;
+     }
+
+     Serial.print(temperature);
+     Serial.print(",");
+     Serial.println(humidity);
+
+     delay(2000); // Wait 2 seconds between readings
+   }
+   ```
+
+3. **Test the Setup:**
+   - Open the **Serial Monitor** in the Arduino IDE (Tools > Serial Monitor) and set the baud rate to **9600**.
+   - You should see temperature and humidity readings in the format: `temperature,humidity`.
 
 ---
 
@@ -75,19 +128,19 @@ This repository includes example data for testing the scripts:
 Use these files to test the scripts without setting up your own environment.
 
 ### Running the Scripts
-1. **Capture Images and Data:**
+1. **Capture Images and Data:**  
    Run `timelapse_capture_images_and_data.py` to capture images and log data:
    ```bash
    python3 scripts/timelapse_capture_images_and_data.py
    ```
 
-2. **Analyze Starter Height and Bubbles:**
+2. **Analyze Starter Height and Bubbles:**  
    Run `bubbles_and_height.py` to measure starter height and count bubbles:
    ```bash
    python3 scripts/bubbles_and_height.py
    ```
 
-3. **Create a Timelapse Video:**
+3. **Create a Timelapse Video:**  
    Run `timelapse_animation.py` to create a timelapse video with graphical overlays:
    ```bash
    python3 scripts/timelapse_animation.py
@@ -113,3 +166,4 @@ If you'd like to contribute:
 
 ## Acknowledgments
 - Inspired by Raspberry Pi and Arduino projects for time-lapse photography and data visualization.
+
