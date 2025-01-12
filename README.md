@@ -113,6 +113,3 @@ If you'd like to contribute:
 
 ## Acknowledgments
 - Inspired by Raspberry Pi and Arduino projects for time-lapse photography and data visualization.
-
-# timelapse-project
-Scripts and resources for timelapse processing.
